@@ -10,6 +10,12 @@ class Knowledge_Base:
         if fact not in self.facts:
             self.facts.append(Fact(fact))
 
+    def get_facts(self):
+        fact_names=[]
+        for fact in self.facts:
+            fact_names.append(fact.name)
+        return fact_names
+
     def clear_facts(self):
         self.facts.clear()
 
@@ -20,10 +26,18 @@ class Knowledge_Base:
         self.additional[name]=info
 
     def Forward_Chaining(self):
-        for rule_name,rule in self.rules.items():
-            if rule.check(self.facts):
-                print(rule_name,":",self.additional[rule_name])
-                self.add_fact(rule_name)
+        def Forward_Chaining(self):
+        go=1
+        while go:
+            satisfied=0
+            for rule_name,rule in self.rules.items():
+                if rule.check(self.facts) and rule_name not in self.get_facts():
+                    print(rule_name,":",self.additional[rule_name])
+                    self.add_fact(rule_name)
+                    satisfied=1
+
+            if satisfied==0:
+                go=0
 
     def Backward_Chaining(self,goal):
         if goal in self.facts:
