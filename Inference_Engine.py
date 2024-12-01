@@ -26,18 +26,20 @@ class Knowledge_Base:
         self.additional[name]=info
 
     def Forward_Chaining(self):
-        def Forward_Chaining(self):
+        results=[]
         go=1
         while go:
             satisfied=0
             for rule_name,rule in self.rules.items():
                 if rule.check(self.facts) and rule_name not in self.get_facts():
-                    print(rule_name,":",self.additional[rule_name])
                     self.add_fact(rule_name)
+                    results.append(rule_name)
                     satisfied=1
 
             if satisfied==0:
                 go=0
+            
+        return results
 
     def Backward_Chaining(self,goal):
         if goal in self.facts:
