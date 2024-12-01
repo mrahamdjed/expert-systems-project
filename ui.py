@@ -24,7 +24,7 @@ class AnimalIdentification:
         self.submitBtn2 = tk.Button(self.fr1, text="Generate Animal (Backward)", font=("Arial", 12), fg="#2d3250", bg="#fcb17a", cursor="hand2",command=self.generate_animalsBackward)
         self.submitBtn2.place(x=300, y=450)
 
-        self.resetBtn = tk.Button(self.fr1, text="Reset", font=("Arial", 12), fg="#2d3250", bg="#fcb17a", cursor="hand2", command=self.printing)
+        self.resetBtn = tk.Button(self.fr1, text="Reset", font=("Arial", 12), fg="#2d3250", bg="#fcb17a", cursor="hand2", command=self.reset)
         self.resetBtn.place(x=600, y=450)
 
         self.facts = Facts
@@ -35,10 +35,6 @@ class AnimalIdentification:
 
         self.result_label = tk.Label(self.fr1,text="",fg="#fff",bg="#2d3250",font=("Arial", 14),wraplength=450,justify="left")
         self.result_label.place(x=20, y=300)
-
-    def printing(self):
-        for rule in self.facts :
-            print(rule)
         
     def create_checkboxes(self):
         row = 50
