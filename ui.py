@@ -43,15 +43,12 @@ class AnimalIdentification:
     def create_checkboxes(self):
         row = 50
         for index, fact in enumerate(self.facts):
-            if fact.name in ("cat","fish","shark") :
-                continue
-            else :
-                column = index % 3
-                row = index // 3
-                var = tk.BooleanVar()
-                checkbox = tk.Checkbutton(self.fr1, text=fact.name, variable=var, fg="#fff", bg="#2d3250", activebackground="#2d3250", activeforeground="#fff", selectcolor="#2d3250", font=("Arial", 12))
-                checkbox.place(x=20 + (column * 300), y=60 + (row * 30))
-                self.facts_vars[fact.name] = var
+            column = index % 3
+            row = index // 3
+            var = tk.BooleanVar()
+            checkbox = tk.Checkbutton(self.fr1, text=fact.name, variable=var, fg="#fff", bg="#2d3250", activebackground="#2d3250", activeforeground="#fff", selectcolor="#2d3250", font=("Arial", 12))
+            checkbox.place(x=20 + (column * 300), y=60 + (row * 30))
+            self.facts_vars[fact.name] = var
 
     def generate_animalsForward(self):
         
@@ -61,13 +58,12 @@ class AnimalIdentification:
             if var.get():
                 self.knowledge_base.add_fact(fact_name)
 
-        self.knowledge_base.Forward_Chaining()
+        tmp=self.knowledge_base.Forward_Chaining()
 
-        results = [
-            f"{rule_name}: {self.knowledge_base.additional[rule_name]}"
-            for rule_name in self.knowledge_base.rules.keys()
-            if rule_name in [fact.name for fact in self.knowledge_base.facts]
-        ]
+        results = []
+
+        for rule_name in tmp:
+            results.append(f"{rule_name}: {self.knowledge_base.additional[rule_name]}")
 
         if results:messagebox.showinfo("Inferred Animals", "\n".join(results))
         else:
@@ -115,7 +111,7 @@ kb.add_rule("shark",AndRule(children=[Fact("fish"),Fact("sharp_teeth"),Fact("lar
 kb.add_additional("shark","Carnivorous, apex predator in oceans")
 
 kb.add_rule("white_shark",AndRule(children=[Fact("shark"),Fact("length_>_4")]))
-kb.add_additional("white_shark","Found in open oceans, known feo its aggressive behavior")
+kb.add_additional("white_shark","Found in open oceans, known for its aggressive behavior")
 
 kb.add_rule("elephant",AndRule(children=[Fact("large_size"),OrRule(children=[Fact("trunk"),Fact("tusks")])]))
 kb.add_additional("elephant","Herbivorous, lives in savannas or forests")
@@ -161,7 +157,7 @@ Facts=[Fact("four_legs"),Fact("meows"),Fact("rectangle_claws"),Fact("long_fur"),
        Fact("length_>_4"),Fact("trunk"),Fact("tusks"),Fact("mane"),Fact("roars"),Fact("striped_fur"),
        Fact("orange_coat_with_black_stripes"),Fact("amphibian"),Fact("jumps"),Fact("can_live_on_land"),
        Fact("sharp_talons"),Fact("wingspan_>_2"),Fact("jumps_high"),Fact("pouch_for_carrying_young"),
-       Fact("strong_build"),Fact("can_run_fast"),Fact("wings"),Fact("nocturnal"),Fact("wingspan_<_0.5"),
+       Fact("strong_build"),Fact("can_run_fast"),Fact("mammal"),Fact("wings"),Fact("nocturnal"),Fact("wingspan_<_0.5"),
        Fact("breathes_air"),Fact("scales"),Fact("howls"),Fact("lives_in_packs"),
        Fact("intelligent"),Fact("number_of_clicks_>_10")]
 
